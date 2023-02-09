@@ -4,8 +4,8 @@ const {Event} = require("../../Database/Models");
 export async function handler() {
   const headers = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Methods': '*'
   };
   const eventList = await Event.findAll({
     where  : {
