@@ -1,4 +1,4 @@
-const { Event } = require("../../Database/Models");
+const {loadModels, destroySequelize} = require("../../Database/Models");
 export async function handler(event) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -13,6 +13,7 @@ export async function handler(event) {
       body: "Successful preflight call.",
     };
   } else if (event.httpMethod === "PUT") {
+    const {Event} = await loadModels()
     const eventObj = JSON.parse(event.body);
     const updatedEvent = await Event.update(
       {
@@ -24,6 +25,7 @@ export async function handler(event) {
         },
       }
     );
+    await destroySequelize()
     return {
       statusCode: 200,
       headers,
