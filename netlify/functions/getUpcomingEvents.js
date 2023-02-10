@@ -1,5 +1,5 @@
 
-const {Op} = require('sequelize')
+const {Op, Sequelize} = require('sequelize')
 const {Event} = require("../../Database/Models");
 export async function handler() {
   const headers = {
@@ -10,15 +10,15 @@ export async function handler() {
   const eventList = await Event.findAll({
     where  : {
       startAt : {
-        [Op.gte] : new Date()
+        [Op.gt] : Sequelize.literal("NOW()")
       }
       
     },
-    order: [["startAt", "DESC"]],
+    order: [["startAt", "ASC"]],
   });
   return {
     statusCode : 200,
     headers,
     body : JSON.stringify(eventList)
   }
-}
+} 

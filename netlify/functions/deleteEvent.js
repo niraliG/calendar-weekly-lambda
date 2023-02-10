@@ -12,9 +12,10 @@ export async function handler(event) {
       body: "Successful preflight call.",
     };
   } else if (event.httpMethod === "DELETE") {
+    const eventObj = JSON.parse(event.body);
     const deletedEvent = await Event.destroy({
       where: {
-        id: event.body.id,
+        id: eventObj.id,
       },
     });
     return {

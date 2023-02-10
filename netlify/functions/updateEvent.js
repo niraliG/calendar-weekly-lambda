@@ -13,13 +13,14 @@ export async function handler(event) {
       body: "Successful preflight call.",
     };
   } else if (event.httpMethod === "PUT") {
+    const eventObj = JSON.parse(event.body);
     const updatedEvent = await Event.update(
       {
-        ...event.body,
+        ...eventObj,
       },
       {
         where: {
-          id: event.body.id,
+          id: eventObj.id,
         },
       }
     );
